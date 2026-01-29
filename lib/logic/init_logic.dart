@@ -3,6 +3,7 @@ import '../data/services/firebase_service.dart';
 import '../data/services/storage_service.dart';
 import '../data/services/remote_config_service.dart';
 import '../data/services/auth_service.dart';
+import '../data/services/user_service.dart';
 import 'providers/providers.dart';
 
 enum InitStatus {
@@ -63,6 +64,10 @@ class InitNotifier extends StateNotifier<InitState> {
       final authService = AuthService();
       if (!authService.isLoggedIn) {
         await authService.signInAnonymously();
+      }
+      final uid = authService.userId;
+      if (uid != null) {
+        await UserService().ensureUserDocument(uid);
       }
       _ref.read(authProvider.notifier).checkAuth();
 
