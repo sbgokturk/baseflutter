@@ -1,0 +1,39 @@
+{
+  "@@locale": "en",
+  "appTitle": "Base",
+  "welcomeMessage": "Welcome to Base",
+  "userIdLabel": "User ID: {id}",
+  "@userIdLabel": {
+    "description": "Label for current user id.",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "notLoggedIn": "Not logged in",
+  "remoteConfigTitle": "Remote Config",
+  "routeNotFound": "Route not found: {route}",
+  "@routeNotFound": {
+    "description": "Shown when a route is not found.",
+    "placeholders": {
+      "route": {
+        "type": "String"
+      }
+    }
+  },
+  "errorTitle": "Something went wrong",
+  "retry": "Retry",
+  "language": "Language",
+  "systemLanguage": "System",
+  "english": "English",
+  "turkish": "Turkish",
+  "initStarting": "Starting...",
+  "initConnectingFirebase": "Connecting to Firebase...",
+  "initLoadingLocalData": "Loading local data...",
+  "initFetchingRemoteConfig": "Fetching remote config...",
+  "initCheckingAuthentication": "Checking authentication...",
+  "initReady": "Ready!",
+  "initRetrying": "Retrying..."
+}
+

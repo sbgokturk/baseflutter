@@ -5,19 +5,29 @@ import '../data/services/remote_config_service.dart';
 import '../data/services/auth_service.dart';
 import 'providers/providers.dart';
 
+enum InitStatus {
+  starting,
+  connectingFirebase,
+  loadingLocalData,
+  fetchingRemoteConfig,
+  checkingAuthentication,
+  ready,
+  retrying,
+}
+
 /// Init state
 class InitState {
   final bool isInitialized;
-  final String status;
+  final InitStatus status;
   final String? error;
 
   InitState({
     this.isInitialized = false,
-    this.status = 'Starting...',
+    this.status = InitStatus.starting,
     this.error,
   });
 
-  InitState copyWith({bool? isInitialized, String? status, String? error}) {
+  InitState copyWith({bool? isInitialized, InitStatus? status, String? error}) {
     return InitState(
       isInitialized: isInitialized ?? this.isInitialized,
       status: status ?? this.status,
@@ -36,20 +46,20 @@ class InitNotifier extends StateNotifier<InitState> {
   Future<void> initialize() async {
     try {
       // Firebase
-      _updateStatus('Connecting to Firebase...');
+      _updateStatus(InitStatus.connectingFirebase);
       await FirebaseService.init();
 
       // Local Storage
-      _updateStatus('Loading local data...');
+      _updateStatus(InitStatus.loadingLocalData);
       await StorageService.init();
 
       // Remote Config
-      _updateStatus('Fetching remote config...');
+      _updateStatus(InitStatus.fetchingRemoteConfig);
       await RemoteConfigService.init();
       _ref.read(remoteConfigProvider.notifier).load();
 
       // Auth check
-      _updateStatus('Checking authentication...');
+      _updateStatus(InitStatus.checkingAuthentication);
       final authService = AuthService();
       if (!authService.isLoggedIn) {
         await authService.signInAnonymously();
@@ -57,7 +67,7 @@ class InitNotifier extends StateNotifier<InitState> {
       _ref.read(authProvider.notifier).checkAuth();
 
       // Ready
-      _updateStatus('Ready!');
+      _updateStatus(InitStatus.ready);
       await Future.delayed(const Duration(milliseconds: 300));
 
       state = state.copyWith(isInitialized: true);
@@ -66,13 +76,13 @@ class InitNotifier extends StateNotifier<InitState> {
     }
   }
 
-  void _updateStatus(String status) {
+  void _updateStatus(InitStatus status) {
     state = state.copyWith(status: status);
   }
 
   /// Retry initialization
   Future<void> retry() async {
-    state = InitState(status: 'Retrying...');
+    state = InitState(status: InitStatus.retrying);
     await initialize();
   }
 }

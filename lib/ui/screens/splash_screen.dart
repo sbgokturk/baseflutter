@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:base/l10n/app_localizations.dart';
 import '../../core/colors.dart';
 import '../../core/constants.dart';
 import '../../logic/init_logic.dart';
@@ -16,7 +17,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _initialize();
+    Future.microtask(_initialize);
   }
 
   Future<void> _initialize() async {
@@ -25,6 +26,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final init = ref.watch(initProvider);
 
     // Navigate when initialized
@@ -35,30 +37,28 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     });
 
     return Scaffold(
-      body: init.error != null ? _buildError(init) : _buildLoading(init),
+      body: init.error != null
+          ? _buildError(init, l10n)
+          : _buildLoading(init, l10n),
     );
   }
 
-  Widget _buildLoading(InitState init) {
+  Widget _buildLoading(InitState init, AppLocalizations l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Logo
-          Icon(
-            Icons.rocket_launch,
-            size: 100,
-            color: AppColors.primary,
-          ),
+          Icon(Icons.rocket_launch, size: 100, color: AppColors.primary),
           const SizedBox(height: Constants.paddingXL),
 
           // App name
           Text(
-            'Base',
+            l10n.appTitle,
             style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
-                ),
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary,
+            ),
           ),
           const SizedBox(height: Constants.paddingXL),
 
@@ -72,32 +72,28 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
           // Status text
           Text(
-            init.status,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
-                ),
+            _statusText(l10n, init.status),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildError(InitState init) {
+  Widget _buildError(InitState init, AppLocalizations l10n) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(Constants.paddingL),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.error_outline,
-              size: 80,
-              color: AppColors.error,
-            ),
+            const Icon(Icons.error_outline, size: 80, color: AppColors.error),
             const SizedBox(height: Constants.paddingL),
 
             Text(
-              'Something went wrong',
+              l10n.errorTitle,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: Constants.paddingS),
@@ -105,20 +101,39 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             Text(
               init.error!,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
             ),
             const SizedBox(height: Constants.paddingL),
 
             ElevatedButton.icon(
               onPressed: () => ref.read(initProvider.notifier).retry(),
               icon: const Icon(Icons.refresh),
-              label: const Text('Retry'),
+              label: Text(l10n.retry),
             ),
           ],
         ),
       ),
     );
+  }
+
+  String _statusText(AppLocalizations l10n, InitStatus status) {
+    switch (status) {
+      case InitStatus.starting:
+        return l10n.initStarting;
+      case InitStatus.connectingFirebase:
+        return l10n.initConnectingFirebase;
+      case InitStatus.loadingLocalData:
+        return l10n.initLoadingLocalData;
+      case InitStatus.fetchingRemoteConfig:
+        return l10n.initFetchingRemoteConfig;
+      case InitStatus.checkingAuthentication:
+        return l10n.initCheckingAuthentication;
+      case InitStatus.ready:
+        return l10n.initReady;
+      case InitStatus.retrying:
+        return l10n.initRetrying;
+    }
   }
 }

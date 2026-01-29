@@ -1,0 +1,39 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Base",
+  "welcomeMessage": "Base'e Hoş Geldiniz",
+  "userIdLabel": "Kullanıcı ID: {id}",
+  "@userIdLabel": {
+    "description": "Mevcut kullanıcı kimliği etiketi.",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "notLoggedIn": "Giriş yapılmadı",
+  "remoteConfigTitle": "Remote Config",
+  "routeNotFound": "Sayfa bulunamadı: {route}",
+  "@routeNotFound": {
+    "description": "Route bulunamadığında gösterilir.",
+    "placeholders": {
+      "route": {
+        "type": "String"
+      }
+    }
+  },
+  "errorTitle": "Bir şeyler ters gitti",
+  "retry": "Tekrar dene",
+  "language": "Dil",
+  "systemLanguage": "Sistem",
+  "english": "İngilizce",
+  "turkish": "Türkçe",
+  "initStarting": "Başlatılıyor...",
+  "initConnectingFirebase": "Firebase'e bağlanılıyor...",
+  "initLoadingLocalData": "Yerel veriler yükleniyor...",
+  "initFetchingRemoteConfig": "Remote config çekiliyor...",
+  "initCheckingAuthentication": "Kimlik doğrulama kontrol ediliyor...",
+  "initReady": "Hazır!",
+  "initRetrying": "Tekrar deneniyor..."
+}
+

@@ -1,0 +1,41 @@
+---
+description: BaseFlutter proje standartları - UI/Logic ayrımı, localization, spacing constants, dil provider kullanımı
+alwaysApply: true
+---
+
+# BaseFlutter Geliştirme Kuralları
+
+## Katman Ayrımı (UI vs Logic)
+
+- **`lib/ui/**`**: Sadece **Widget/Screens**. İş kuralı, API çağrısı, storage erişimi burada yazılmaz.
+- **`lib/logic/**`**: **State/Provider/Controller** ve akışlar. UI'dan bağımsız test edilebilir olmalı.
+- **`lib/data/**`**: **Service / Repository / Model**. Network, storage, firebase vb. erişimler burada.
+- **`lib/core/**`**: Tema, renk, sabitler (spacing, radius, durations), ortak yardımcılar.
+
+**Yeni bir ekran geliştirirken**:
+- Ekran: `lib/ui/screens/<name>_screen.dart`
+- Ekranın state/akışı: `lib/logic/**` altında (örn. provider)
+- UI, state'i sadece dinler/çağırır; iş mantığı logic katmanında kalır.
+
+## Localization Zorunluluğu (Her UI Değişikliğinde)
+
+- UI'da görünen **tüm metinler** localization üzerinden gelir; hard-coded string bırakılmaz.
+- Yeni metin/label eklendiğinde ilgili localization key'i **aynı PR/commit içinde** eklenir.
+- Tarih/sayı/para formatlama gibi kullanıcıya görünen formatlar da localization/intl kurallarına uyar.
+
+## Dil Erişimi – Provider Kullanımı
+
+- UI'da dile (locale / çeviri metinlerine) erişim **her zaman bir provider üzerinden** yapılır.
+- Bu provider `lib/logic/providers/` altında tanımlanır; UI sadece `context.watch` / `context.read` veya ilgili hook ile kullanır.
+- Ekran/widget içinde doğrudan `Localizations.of(context)` veya global locale erişimi yerine **proje standardı olan localization provider** kullanılır.
+
+## Global Spacing / Padding Standartları
+
+- UI'da "magic number" boşluklar kullanılmaz (padding, margin, gap, radius, icon size vb.).
+- Bu değerler **`lib/core/constants.dart`** (veya `lib/core/**`) altında **tek kaynaktan** yönetilir (örn. `Constants.paddingM`, `Constants.radiusL`).
+- Aynı tür boşluklar uygulama genelinde aynı sabitleri kullanır; tutarlılık esastır.
+
+## Hatırlatma (Her Geliştirmede)
+
+- Yeni ekran/feature başlangıcında bu dosyayı referans al.
+- Review sırasında şu kontrol edilir: **UI-Logic ayrımı**, **localization**, **spacing constants**, **dil için provider kullanımı**.

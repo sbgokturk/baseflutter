@@ -1,19 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:base/l10n/app_localizations.dart';
 import '../../core/constants.dart';
 import '../../logic/providers/providers.dart';
+
+enum _LocaleChoice { system, en, tr }
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final config = ref.watch(remoteConfigProvider);
     final auth = ref.watch(authProvider);
+    final locale = ref.watch(localeProvider);
+    final userIdText = auth.userId == null
+        ? l10n.notLoggedIn
+        : l10n.userIdLabel(auth.userId!);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Base'),
+        title: Text(l10n.appTitle),
+        actions: [
+          PopupMenuButton<_LocaleChoice>(
+            tooltip: l10n.language,
+            initialValue: locale == null
+                ? _LocaleChoice.system
+                : (locale.languageCode == 'tr'
+                      ? _LocaleChoice.tr
+                      : _LocaleChoice.en),
+            onSelected: (value) {
+              final notifier = ref.read(localeProvider.notifier);
+              switch (value) {
+                case _LocaleChoice.system:
+                  notifier.useSystem();
+                  break;
+                case _LocaleChoice.en:
+                  notifier.setEnglish();
+                  break;
+                case _LocaleChoice.tr:
+                  notifier.setTurkish();
+                  break;
+              }
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: _LocaleChoice.system,
+                child: Text(l10n.systemLanguage),
+              ),
+              PopupMenuItem(value: _LocaleChoice.en, child: Text(l10n.english)),
+              PopupMenuItem(value: _LocaleChoice.tr, child: Text(l10n.turkish)),
+            ],
+            icon: const Icon(Icons.language),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(Constants.paddingM),
@@ -26,11 +67,11 @@ class HomeScreen extends ConsumerWidget {
             ),
             const SizedBox(height: Constants.paddingL),
             Text(
-              'Welcome to Base',
+              l10n.welcomeMessage,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: Constants.paddingS),
-            Text('User ID: ${auth.userId ?? 'Not logged in'}'),
+            Text(userIdText),
             const SizedBox(height: Constants.paddingL),
 
             // Remote Config değerleri
@@ -45,11 +86,11 @@ class HomeScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Remote Config',
+                    l10n.remoteConfigTitle,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: Constants.paddingM),
-                  
+
                   // Direkt kullanım örnekleri
                   _row('appInReview', config.appInReview.toString()),
                   _row('forceUpdate', config.forceUpdate.toString()),
@@ -76,7 +117,10 @@ class HomeScreen extends ConsumerWidget {
         children: [
           SizedBox(
             width: 120,
-            child: Text(key, style: const TextStyle(fontWeight: FontWeight.w500)),
+            child: Text(
+              key,
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
           ),
           Expanded(child: Text(value)),
         ],
