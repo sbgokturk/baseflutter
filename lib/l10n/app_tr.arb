@@ -32,8 +32,45 @@
   "initConnectingFirebase": "Firebase'e bağlanılıyor...",
   "initLoadingLocalData": "Yerel veriler yükleniyor...",
   "initFetchingRemoteConfig": "Remote config çekiliyor...",
+  "initLoadingTimeSlots": "Zaman çizelgeleri yükleniyor...",
   "initCheckingAuthentication": "Kimlik doğrulama kontrol ediliyor...",
   "initReady": "Hazır!",
-  "initRetrying": "Tekrar deneniyor..."
+  "initRetrying": "Tekrar deneniyor...",
+
+  "timeSlotTestTitle": "Zaman Slotu Test",
+  "timeSlotServerTime": "Sunucu Zamanı",
+  "timeSlotCurrentTime": "Şuanki Zaman (HHMM)",
+  "timeSlotRefresh": "Yenile",
+  "timeSlotLoading": "Yükleniyor...",
+  "timeSlotSlotNumber": "Slot {number}",
+  "@timeSlotSlotNumber": {
+    "description": "Zaman slotu numara etiketi.",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "timeSlotStartTime": "Başlangıç",
+  "timeSlotEndTime": "Bitiş",
+  "timeSlotType": "Tip",
+  "timeSlotPackage": "Paket",
+  "timeSlotStatus": "Durum",
+  "timeSlotActive": "AKTİF",
+  "timeSlotInactive": "Pasif",
+  "timeSlotDisabled": "Devre Dışı",
+  "timeSlotActiveSlots": "Aktif Slotlar",
+  "timeSlotAllSlots": "Tüm Slotlar",
+  "timeSlotNoActiveSlots": "Şu an aktif slot yok",
+  "timeSlotError": "Hata: {error}",
+  "@timeSlotError": {
+    "description": "Zaman slotu hata mesajı.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "openTimeSlotTest": "Zaman Slotu Testini Aç"
 }
 

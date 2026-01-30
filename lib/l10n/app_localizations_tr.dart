@@ -61,6 +61,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get initFetchingRemoteConfig => 'Remote config çekiliyor...';
 
   @override
+  String get initLoadingTimeSlots => 'Zaman çizelgeleri yükleniyor...';
+
+  @override
   String get initCheckingAuthentication => 'Kimlik doğrulama kontrol ediliyor...';
 
   @override
@@ -68,4 +71,65 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get initRetrying => 'Tekrar deneniyor...';
+
+  @override
+  String get timeSlotTestTitle => 'Zaman Slotu Test';
+
+  @override
+  String get timeSlotServerTime => 'Sunucu Zamanı';
+
+  @override
+  String get timeSlotCurrentTime => 'Şuanki Zaman (HHMM)';
+
+  @override
+  String get timeSlotRefresh => 'Yenile';
+
+  @override
+  String get timeSlotLoading => 'Yükleniyor...';
+
+  @override
+  String timeSlotSlotNumber(int number) {
+    return 'Slot $number';
+  }
+
+  @override
+  String get timeSlotStartTime => 'Başlangıç';
+
+  @override
+  String get timeSlotEndTime => 'Bitiş';
+
+  @override
+  String get timeSlotType => 'Tip';
+
+  @override
+  String get timeSlotPackage => 'Paket';
+
+  @override
+  String get timeSlotStatus => 'Durum';
+
+  @override
+  String get timeSlotActive => 'AKTİF';
+
+  @override
+  String get timeSlotInactive => 'Pasif';
+
+  @override
+  String get timeSlotDisabled => 'Devre Dışı';
+
+  @override
+  String get timeSlotActiveSlots => 'Aktif Slotlar';
+
+  @override
+  String get timeSlotAllSlots => 'Tüm Slotlar';
+
+  @override
+  String get timeSlotNoActiveSlots => 'Şu an aktif slot yok';
+
+  @override
+  String timeSlotError(String error) {
+    return 'Hata: $error';
+  }
+
+  @override
+  String get openTimeSlotTest => 'Zaman Slotu Testini Aç';
 }

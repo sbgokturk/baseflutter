@@ -130,6 +130,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         return l10n.initLoadingLocalData;
       case InitStatus.fetchingRemoteConfig:
         return l10n.initFetchingRemoteConfig;
+      case InitStatus.loadingTimeSlots:
+        return l10n.initLoadingTimeSlots;
       case InitStatus.checkingAuthentication:
         return l10n.initCheckingAuthentication;
       case InitStatus.ready:

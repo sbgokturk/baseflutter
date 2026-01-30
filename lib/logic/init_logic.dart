@@ -13,6 +13,7 @@ enum InitStatus {
   connectingFirebase,
   loadingLocalData,
   fetchingRemoteConfig,
+  loadingTimeSlots,
   checkingAuthentication,
   ready,
   retrying,
@@ -45,36 +46,47 @@ class InitNotifier extends StateNotifier<InitState> {
 
   InitNotifier(this._ref) : super(InitState());
 
-  /// Initialize all services
+  /// Initialize all services.
+  /// Order: Firebase → Auth → RevenueCat → Analytics (her biri bir sonrakine bağımlı).
   Future<void> initialize() async {
     try {
-      // Firebase
+      // 1. Firebase (main'de zaten yapıldı, burada no-op)
       _updateStatus(InitStatus.connectingFirebase);
       await FirebaseService.init();
-      await AnalyticsService().initialize();
 
-      // Local Storage
-      _updateStatus(InitStatus.loadingLocalData);
-      await StorageService.init();
-
-      // Remote Config
-      _updateStatus(InitStatus.fetchingRemoteConfig);
-      await RemoteConfigService.init();
-      _ref.read(remoteConfigProvider.notifier).load();
-
-      // Auth check
+      // 2. Auth (uid lazım: RevenueCat + Analytics)
       _updateStatus(InitStatus.checkingAuthentication);
       final authService = AuthService();
       if (!authService.isLoggedIn) {
         await authService.signInAnonymously();
       }
       final uid = authService.userId;
+      _ref.read(authProvider.notifier).checkAuth();
+
+      // 3. User doc + RevenueCat (uid ile)
       if (uid != null) {
         await UserService().ensureUserDocument(uid);
         await RevenueCatService.configure(uid);
+      }
+
+      // 4. Analytics (user context ile en sonda)
+      if (uid != null) {
         AnalyticsService().updateUserData(userId: uid);
       }
-      _ref.read(authProvider.notifier).checkAuth();
+      await AnalyticsService().initialize();
+
+      // Paralel bağımsız servisler (uid gerektirmez)
+      _updateStatus(InitStatus.loadingLocalData);
+      await StorageService.init();
+
+      // Remote Config yükle
+      _updateStatus(InitStatus.fetchingRemoteConfig);
+      await RemoteConfigService.init();
+      _ref.read(remoteConfigProvider.notifier).load();
+
+      // Time Slot'ları yükle (Remote Config'e bağımlı)
+      _updateStatus(InitStatus.loadingTimeSlots);
+      await _ref.read(timeSlotProvider.notifier).refresh();
 
       // Ready
       _updateStatus(InitStatus.ready);

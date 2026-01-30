@@ -61,6 +61,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get initFetchingRemoteConfig => 'Fetching remote config...';
 
   @override
+  String get initLoadingTimeSlots => 'Loading time schedules...';
+
+  @override
   String get initCheckingAuthentication => 'Checking authentication...';
 
   @override
@@ -68,4 +71,65 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get initRetrying => 'Retrying...';
+
+  @override
+  String get timeSlotTestTitle => 'Time Slot Test';
+
+  @override
+  String get timeSlotServerTime => 'Server Time';
+
+  @override
+  String get timeSlotCurrentTime => 'Current Time (HHMM)';
+
+  @override
+  String get timeSlotRefresh => 'Refresh';
+
+  @override
+  String get timeSlotLoading => 'Loading...';
+
+  @override
+  String timeSlotSlotNumber(int number) {
+    return 'Slot $number';
+  }
+
+  @override
+  String get timeSlotStartTime => 'Start';
+
+  @override
+  String get timeSlotEndTime => 'End';
+
+  @override
+  String get timeSlotType => 'Type';
+
+  @override
+  String get timeSlotPackage => 'Package';
+
+  @override
+  String get timeSlotStatus => 'Status';
+
+  @override
+  String get timeSlotActive => 'ACTIVE';
+
+  @override
+  String get timeSlotInactive => 'Inactive';
+
+  @override
+  String get timeSlotDisabled => 'Disabled';
+
+  @override
+  String get timeSlotActiveSlots => 'Active Slots';
+
+  @override
+  String get timeSlotAllSlots => 'All Slots';
+
+  @override
+  String get timeSlotNoActiveSlots => 'No active slots at this time';
+
+  @override
+  String timeSlotError(String error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String get openTimeSlotTest => 'Open Time Slot Test';
 }

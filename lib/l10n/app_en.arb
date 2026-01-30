@@ -32,8 +32,45 @@
   "initConnectingFirebase": "Connecting to Firebase...",
   "initLoadingLocalData": "Loading local data...",
   "initFetchingRemoteConfig": "Fetching remote config...",
+  "initLoadingTimeSlots": "Loading time schedules...",
   "initCheckingAuthentication": "Checking authentication...",
   "initReady": "Ready!",
-  "initRetrying": "Retrying..."
+  "initRetrying": "Retrying...",
+
+  "timeSlotTestTitle": "Time Slot Test",
+  "timeSlotServerTime": "Server Time",
+  "timeSlotCurrentTime": "Current Time (HHMM)",
+  "timeSlotRefresh": "Refresh",
+  "timeSlotLoading": "Loading...",
+  "timeSlotSlotNumber": "Slot {number}",
+  "@timeSlotSlotNumber": {
+    "description": "Time slot number label.",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "timeSlotStartTime": "Start",
+  "timeSlotEndTime": "End",
+  "timeSlotType": "Type",
+  "timeSlotPackage": "Package",
+  "timeSlotStatus": "Status",
+  "timeSlotActive": "ACTIVE",
+  "timeSlotInactive": "Inactive",
+  "timeSlotDisabled": "Disabled",
+  "timeSlotActiveSlots": "Active Slots",
+  "timeSlotAllSlots": "All Slots",
+  "timeSlotNoActiveSlots": "No active slots at this time",
+  "timeSlotError": "Error: {error}",
+  "@timeSlotError": {
+    "description": "Error message for time slot.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "openTimeSlotTest": "Open Time Slot Test"
 }
 

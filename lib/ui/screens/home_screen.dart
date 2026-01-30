@@ -4,6 +4,7 @@ import 'package:base/l10n/app_localizations.dart';
 import '../../core/constants.dart';
 import '../../data/services/analytics_service.dart';
 import '../../logic/providers/providers.dart';
+import '../../routes/app_routes.dart';
 
 enum _LocaleChoice { system, en, tr }
 
@@ -113,6 +114,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   _row('privacyUrl', config.privacyUrl),
                   _row('termsUrl', config.termsUrl),
                 ],
+              ),
+            ),
+
+            const SizedBox(height: Constants.paddingL),
+
+            // Time Slot Test Button
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.timeSlotTest);
+                },
+                icon: const Icon(Icons.schedule),
+                label: Text(l10n.openTimeSlotTest),
               ),
             ),
           ],

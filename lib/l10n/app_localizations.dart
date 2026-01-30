@@ -191,6 +191,12 @@ abstract class AppLocalizations {
   /// **'Fetching remote config...'**
   String get initFetchingRemoteConfig;
 
+  /// No description provided for @initLoadingTimeSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading time schedules...'**
+  String get initLoadingTimeSlots;
+
   /// No description provided for @initCheckingAuthentication.
   ///
   /// In en, this message translates to:
@@ -208,6 +214,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retrying...'**
   String get initRetrying;
+
+  /// No description provided for @timeSlotTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Slot Test'**
+  String get timeSlotTestTitle;
+
+  /// No description provided for @timeSlotServerTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Server Time'**
+  String get timeSlotServerTime;
+
+  /// No description provided for @timeSlotCurrentTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Time (HHMM)'**
+  String get timeSlotCurrentTime;
+
+  /// No description provided for @timeSlotRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get timeSlotRefresh;
+
+  /// No description provided for @timeSlotLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get timeSlotLoading;
+
+  /// Time slot number label.
+  ///
+  /// In en, this message translates to:
+  /// **'Slot {number}'**
+  String timeSlotSlotNumber(int number);
+
+  /// No description provided for @timeSlotStartTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get timeSlotStartTime;
+
+  /// No description provided for @timeSlotEndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get timeSlotEndTime;
+
+  /// No description provided for @timeSlotType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get timeSlotType;
+
+  /// No description provided for @timeSlotPackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Package'**
+  String get timeSlotPackage;
+
+  /// No description provided for @timeSlotStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get timeSlotStatus;
+
+  /// No description provided for @timeSlotActive.
+  ///
+  /// In en, this message translates to:
+  /// **'ACTIVE'**
+  String get timeSlotActive;
+
+  /// No description provided for @timeSlotInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get timeSlotInactive;
+
+  /// No description provided for @timeSlotDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get timeSlotDisabled;
+
+  /// No description provided for @timeSlotActiveSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Slots'**
+  String get timeSlotActiveSlots;
+
+  /// No description provided for @timeSlotAllSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'All Slots'**
+  String get timeSlotAllSlots;
+
+  /// No description provided for @timeSlotNoActiveSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'No active slots at this time'**
+  String get timeSlotNoActiveSlots;
+
+  /// Error message for time slot.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String timeSlotError(String error);
+
+  /// No description provided for @openTimeSlotTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Time Slot Test'**
+  String get openTimeSlotTest;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

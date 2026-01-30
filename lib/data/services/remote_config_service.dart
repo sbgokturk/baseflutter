@@ -1,4 +1,5 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 import '../../config/remote_keys.dart';
 
 /// Remote Config service
@@ -14,10 +15,15 @@ class RemoteConfigService {
     await _config.setDefaults(RemoteKeys.defaults);
 
     // Fetch ayarları
-    await _config.setConfigSettings(RemoteConfigSettings(
-      fetchTimeout: const Duration(seconds: 10),
-      minimumFetchInterval: const Duration(hours: 1),
-    ));
+    // Debug modda hemen çek, production'da 1 saat bekle
+    await _config.setConfigSettings(
+      RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: kDebugMode
+            ? Duration.zero
+            : const Duration(minutes: 2),
+      ),
+    );
 
     // Firebase'den çek
     try {
