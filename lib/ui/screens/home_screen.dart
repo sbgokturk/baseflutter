@@ -2,15 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:base/l10n/app_localizations.dart';
 import '../../core/constants.dart';
+import '../../data/services/analytics_service.dart';
 import '../../logic/providers/providers.dart';
 
 enum _LocaleChoice { system, en, tr }
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    AnalyticsService().logPageView('home');
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final config = ref.watch(remoteConfigProvider);
     final auth = ref.watch(authProvider);

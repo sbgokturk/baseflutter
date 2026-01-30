@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:base/l10n/app_localizations.dart';
 import '../../core/colors.dart';
 import '../../core/constants.dart';
+import '../../data/services/analytics_service.dart';
 import '../../logic/init_logic.dart';
 import '../../routes/app_routes.dart';
 
@@ -17,6 +18,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    AnalyticsService().logPageView('splash');
     Future.microtask(_initialize);
   }
 

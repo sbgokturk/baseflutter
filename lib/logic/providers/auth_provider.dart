@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/services/auth_service.dart';
+import '../../data/services/analytics_service.dart';
 
 /// Auth state
 class AuthState {
@@ -30,7 +31,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   /// Check current auth
   void checkAuth() {
-    state = state.copyWith(user: _authService.currentUser);
+    final user = _authService.currentUser;
+    state = state.copyWith(user: user);
+    AnalyticsService().updateUserData(userId: user?.uid);
   }
 
   /// Sign in anonymously
@@ -50,6 +53,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> signOut() async {
     state = state.copyWith(isLoading: true);
     await _authService.signOut();
+    AnalyticsService().updateUserData(userId: null);
     state = AuthState();
   }
 }

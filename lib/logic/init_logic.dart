@@ -5,6 +5,7 @@ import '../data/services/remote_config_service.dart';
 import '../data/services/auth_service.dart';
 import '../data/services/user_service.dart';
 import '../data/services/revenuecat_service.dart';
+import '../data/services/analytics_service.dart';
 import 'providers/providers.dart';
 
 enum InitStatus {
@@ -50,6 +51,7 @@ class InitNotifier extends StateNotifier<InitState> {
       // Firebase
       _updateStatus(InitStatus.connectingFirebase);
       await FirebaseService.init();
+      await AnalyticsService().initialize();
 
       // Local Storage
       _updateStatus(InitStatus.loadingLocalData);
@@ -70,6 +72,7 @@ class InitNotifier extends StateNotifier<InitState> {
       if (uid != null) {
         await UserService().ensureUserDocument(uid);
         await RevenueCatService.configure(uid);
+        AnalyticsService().updateUserData(userId: uid);
       }
       _ref.read(authProvider.notifier).checkAuth();
 
