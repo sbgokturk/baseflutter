@@ -24,10 +24,11 @@ class AuthState {
 }
 
 /// Auth Notifier
-class AuthNotifier extends StateNotifier<AuthState> {
+class AuthNotifier extends Notifier<AuthState> {
   final AuthService _authService = AuthService();
 
-  AuthNotifier() : super(AuthState());
+  @override
+  AuthState build() => AuthState();
 
   /// Check current auth
   void checkAuth() {
@@ -59,6 +60,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
 }
 
 /// Auth Provider
-final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
-  return AuthNotifier();
-});
+final authProvider = NotifierProvider<AuthNotifier, AuthState>(
+  AuthNotifier.new,
+);

@@ -59,8 +59,9 @@ class RemoteConfig {
 }
 
 /// Remote Config Notifier
-class RemoteConfigNotifier extends StateNotifier<RemoteConfig> {
-  RemoteConfigNotifier() : super(RemoteConfig.defaults());
+class RemoteConfigNotifier extends Notifier<RemoteConfig> {
+  @override
+  RemoteConfig build() => RemoteConfig.defaults();
 
   /// Load from Firebase
   void load() {
@@ -75,7 +76,6 @@ class RemoteConfigNotifier extends StateNotifier<RemoteConfig> {
 }
 
 /// Remote Config Provider
-final remoteConfigProvider =
-    StateNotifierProvider<RemoteConfigNotifier, RemoteConfig>((ref) {
-  return RemoteConfigNotifier();
-});
+final remoteConfigProvider = NotifierProvider<RemoteConfigNotifier, RemoteConfig>(
+  RemoteConfigNotifier.new,
+);

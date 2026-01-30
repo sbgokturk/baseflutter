@@ -77,8 +77,9 @@ class TimeSlotState {
 }
 
 /// Time schedule notifier
-class TimeSlotNotifier extends StateNotifier<TimeSlotState> {
-  TimeSlotNotifier() : super(const TimeSlotState());
+class TimeSlotNotifier extends Notifier<TimeSlotState> {
+  @override
+  TimeSlotState build() => const TimeSlotState();
 
   /// Tüm schedule'ları ve server zamanını yeniler.
   /// Her çağrıda güncel server zamanı çekilir.
@@ -112,7 +113,6 @@ class TimeSlotNotifier extends StateNotifier<TimeSlotState> {
 }
 
 /// Time Slot Provider
-final timeSlotProvider =
-    StateNotifierProvider<TimeSlotNotifier, TimeSlotState>((ref) {
-  return TimeSlotNotifier();
-});
+final timeSlotProvider = NotifierProvider<TimeSlotNotifier, TimeSlotState>(
+  TimeSlotNotifier.new,
+);

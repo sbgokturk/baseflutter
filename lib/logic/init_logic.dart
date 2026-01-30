@@ -41,10 +41,9 @@ class InitState {
 }
 
 /// Init Notifier
-class InitNotifier extends StateNotifier<InitState> {
-  final Ref _ref;
-
-  InitNotifier(this._ref) : super(InitState());
+class InitNotifier extends Notifier<InitState> {
+  @override
+  InitState build() => InitState();
 
   /// Initialize all services.
   /// Order: Firebase → Auth → RevenueCat → Analytics (her biri bir sonrakine bağımlı).
@@ -61,7 +60,7 @@ class InitNotifier extends StateNotifier<InitState> {
         await authService.signInAnonymously();
       }
       final uid = authService.userId;
-      _ref.read(authProvider.notifier).checkAuth();
+      ref.read(authProvider.notifier).checkAuth();
 
       // 3. User doc + RevenueCat (uid ile)
       if (uid != null) {
@@ -82,11 +81,11 @@ class InitNotifier extends StateNotifier<InitState> {
       // Remote Config yükle
       _updateStatus(InitStatus.fetchingRemoteConfig);
       await RemoteConfigService.init();
-      _ref.read(remoteConfigProvider.notifier).load();
+      ref.read(remoteConfigProvider.notifier).load();
 
       // Time Slot'ları yükle (Remote Config'e bağımlı)
       _updateStatus(InitStatus.loadingTimeSlots);
-      await _ref.read(timeSlotProvider.notifier).refresh();
+      await ref.read(timeSlotProvider.notifier).refresh();
 
       // Ready
       _updateStatus(InitStatus.ready);
@@ -110,6 +109,6 @@ class InitNotifier extends StateNotifier<InitState> {
 }
 
 /// Init Provider
-final initProvider = StateNotifierProvider<InitNotifier, InitState>((ref) {
-  return InitNotifier(ref);
-});
+final initProvider = NotifierProvider<InitNotifier, InitState>(
+  InitNotifier.new,
+);

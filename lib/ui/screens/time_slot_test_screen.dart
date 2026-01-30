@@ -186,7 +186,7 @@ class _TimeSlotTestScreenState extends ConsumerState<TimeSlotTestScreen> {
     if (highlightActive && slot.isActive) {
       cardColor = theme.colorScheme.primaryContainer;
     } else if (isDisabled) {
-      cardColor = theme.colorScheme.surfaceContainerHighest.withOpacity(0.5);
+      cardColor = theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5);
     }
 
     return Card(
@@ -205,7 +205,7 @@ class _TimeSlotTestScreenState extends ConsumerState<TimeSlotTestScreen> {
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: isDisabled
-                        ? theme.colorScheme.onSurface.withOpacity(0.5)
+                        ? theme.colorScheme.onSurface.withValues(alpha: 0.5)
                         : null,
                   ),
                 ),
@@ -265,7 +265,7 @@ class _TimeSlotTestScreenState extends ConsumerState<TimeSlotTestScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(Constants.paddingS),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(Constants.radiusS),
               ),
               child: Text(
@@ -296,12 +296,12 @@ class _TimeSlotTestScreenState extends ConsumerState<TimeSlotTestScreen> {
           l10n.timeSlotDisabled,
           style: TextStyle(
             fontSize: 12,
-            color: theme.colorScheme.onSurface.withOpacity(0.5),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
         ),
         backgroundColor: theme.colorScheme.surface,
         side: BorderSide(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
         padding: EdgeInsets.zero,
         visualDensity: VisualDensity.compact,
